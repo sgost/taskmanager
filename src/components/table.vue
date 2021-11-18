@@ -47,7 +47,7 @@
           </div>
           <div id="button">
             <button id="btn1">
-              <img src="../assets/pencil.svg" />New Task
+              <img src="../assets/pencil.svg" />{{ message }}
             </button>
             <button id="btn2"><img src="../assets/drop_white.svg" /></button>
           </div>
@@ -171,22 +171,36 @@
             <p>Hooks</p>
           </div>
           <div id="inbox_container2_bottom">
-            <p>
-              Checklist<span>(05)</span>
-              <img src="../assets/plus.svg" id="plus" />
+            <div id="task_bar_container" v-if="showTask">
+              <input
+                type="text"
+                placeholder="Add Tasks"
+                id="task_bar"
+                v-model="message"
+                @keyup.enter="add"
+              />
+              <img
+                src="../assets/plus.svg"
+                id="plus"
+                @click="this.showTask = false"
+              />
+            </div>
+            <p v-else>
+              Checklist<span>({{lists.length}})</span>
+              <img src="../assets/plus.svg" id="plus" @click="this.showTask = true"/>
             </p>
-            <p>
-              01<span
-                >Create Mobile Responsive Prototype for Task bench
-                application</span
-              ><img src="../assets/checked.svg" id="plus" />
-            </p>
-            <p>
-              01<span
-                >Create Mobile Responsive Prototype for Task bench
-                application</span
-              ><img src="../assets/checked.svg" id="plus" />
-            </p>
+
+            <div id="lists" v-for="(Do, index) in lists" :key="index">
+              <p>
+                {{ index === 0 ? "0"+(index+1) : index === 1 ? "0"+(index+1) : index === 2 ? "0"+(index+1) : index === 3 ? "0"+(index+1) : index === 4 ? "0"+(index+1) : index === 5 ? "0"+(index+1) : index === 6 ? "0"+(index+1) : index === 7 ? "0"+(index+1) : index === 8 ? "0"+(index+1) : index+1}}<span>{{ Do }}</span
+                ><img src="../assets/checked.svg" id="plus" @click="remove" />
+                <img
+                  src="../assets/checked_green.svg"
+                  id="plus2"
+                  @click="remove"
+                />
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -196,6 +210,38 @@
 <script>
 export default {
   name: "Table",
+  data() {
+    return {
+      message: "",
+      editing: false,
+      editingId: 0,
+      lists: ["Create Mobile Responsive Prototype for Task bench application"],
+      showTask: false,
+    };
+  },
+  methods: {
+    add: function () {
+      if (this.message !== "") {
+        if (this.editing) {
+          (this.lists[this.editingId] = this.message),
+            (this.message = ""),
+            (this.editing = false);
+        } else {
+          this.lists.push(this.message), (this.message = "");
+        }
+      }
+    },
+
+    remove: function (index) {
+      this.lists.splice(index, 1);
+    },
+
+    edit: function (index) {
+      this.message = this.lists[index];
+      (this.editing = true), (this.editingId = index), (this.check = true);
+    },
+
+  },
 };
 </script>
 
@@ -363,8 +409,8 @@ export default {
 }
 #menu_container #button #btn1 img {
   margin: 0 0.72992700729927vw 0 0.875912408759124vw;
-  width: 1.02189781021898vw;
-  height: 1.02189781021898vw;
+  width: 1.45985401459854vw;
+  height: 1.45985401459854vw;
 }
 #menu_container #button #btn2 {
   width: 2.18978102189781vw;
@@ -372,8 +418,8 @@ export default {
   border-left: 0.072992700729927vw solid white;
 }
 #menu_container #button #btn2 img {
-  width: 1.02189781021898vw;
-  height: 1.02189781021898vw;
+  width: 0.8vw;
+  height: 0.8vw;
 }
 #menu_container #profile {
   display: flex;
@@ -406,8 +452,8 @@ export default {
 }
 #menu_container #profile p img {
   margin: 0 0 0 0.5vw;
-  width: 1.02vw;
-  height: 1.02vw;
+  width: 0.8vw;
+  height: 0.8vw;
 }
 #menu_container #inbox_container {
   width: 25.8394160583942vw;
@@ -439,8 +485,8 @@ export default {
 }
 #menu_container #inbox_container #ind_top button #drop {
   margin-left: 2.18978102189781vw;
-  width:1.02vw;
-  height:1.02vw;
+  width: 0.8vw;
+  height: 0.8vw;
 }
 #menu_container #inbox_container #ind_top button:nth-child(2) {
   width: 2.62773722627737vw;
@@ -747,8 +793,32 @@ export default {
 
 /*====================Todo==========================*/
 #inbox_container2 #inbox_container2_bottom {
-  padding: 1.97080291970803vw 0;
+  padding: 1.97080291970803vw 1vw;
   background: white;
+  position: relative;
+}
+#inbox_container2 #inbox_container2_bottom #task_bar_container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1vw;
+}
+#inbox_container2 #inbox_container2_bottom #task_bar_container #task_bar {
+  width: 479px;
+  height: 46px;
+  background: #f3f3f3;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  padding: 0 1vw;
+  font-size: 1vw;
+}
+#inbox_container2 #inbox_container2_bottom #task_bar_container #plus {
+  width: 1.82481751824818vw;
+  height: 1.82481751824818vw;
+  margin: auto 0 auto auto;
+  cursor: pointer;
+  transition: 0.5s ease-in-out;
+   transform: rotate(45deg);
 }
 #inbox_container2 #inbox_container2_bottom p {
   display: flex;
@@ -767,7 +837,7 @@ export default {
   font-weight: 500;
   font-size: 0.989540145985401vw;
 }
-#inbox_container2 #inbox_container2_bottom p:nth-child(1):nth-child(1) {
+#inbox_container2 #inbox_container2_bottom p {
   font-style: normal;
   font-weight: bold;
   font-size: 1.12296350364964vw;
@@ -775,7 +845,7 @@ export default {
   color: #000000;
   border: none;
 }
-#inbox_container2 #inbox_container2_bottom p:nth-child(1) span {
+#inbox_container2 #inbox_container2_bottom p span {
   color: #65676d;
   margin: 0 0 0 0.510948905109489vw;
 }
@@ -784,5 +854,50 @@ export default {
   height: 1.82481751824818vw;
   margin: 0 0 0 auto;
   cursor: pointer;
+  transition: 0.5s ease-in-out;
+}
+#inbox_container2 #inbox_container2_bottom #lists p {
+  display: flex;
+  align-items: center;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1.01067153284672vw;
+  line-height: 1.24087591240876vw;
+  color: #65676d;
+  padding: 0.948905109489051vw 1.09489051094891vw;
+  border-bottom: 0.0510948905109489vw solid rgba(0, 0, 0, 0.1);
+}
+#inbox_container2 #inbox_container2_bottom #lists p span {
+  margin: 0 0 0 1.09489051094891vw;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.989540145985401vw;
+  position: relative;
+  color: black;
+}
+#inbox_container2 #inbox_container2_bottom #lists p #plus2 {
+  width: 1.82481751824818vw;
+  height: 1.82481751824818vw;
+  margin: 0 0 0 auto;
+  cursor: pointer;
+  display: none;
+}
+#inbox_container2 #inbox_container2_bottom #lists p:hover span {
+  color: #65676d;
+}
+#inbox_container2 #inbox_container2_bottom #lists p:hover #plus {
+  display: none;
+}
+#inbox_container2 #inbox_container2_bottom #lists p:hover #plus2 {
+  display: flex;
+}
+#inbox_container2 #inbox_container2_bottom #lists p:hover span:after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 1px;
+  background: #65676d;
+  top: 49%;
+  left: 0;
 }
 </style>
