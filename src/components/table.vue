@@ -214,7 +214,7 @@
               />
             </p>
 
-            <div id="lists">
+            <div id="lists" >
               <p v-for="(Do, index) in lists" :key="index">
                 {{
                   index === 0
@@ -320,13 +320,13 @@ export default {
 #table_main {
   padding: 0;
   height: 100vh;
-  overflow: hidden;
+  overflow:hidden;
 }
-@media (max-width: 1100px) {
+@media (max-width:1100px){
   #table_main {
-    padding: 0;
-    height: 50vw;
-  }
+  padding: 0;
+  height: 50vw;
+}
 }
 #table_main #search_container {
   background: #ffffff;
@@ -424,10 +424,10 @@ export default {
   display: flex;
   overflow: hidden;
 }
-@media (max-width: 1100px) {
+@media (max-width:1100px){
   #menu {
-    height: 48vw;
-  }
+  height: 48vw;
+}
 }
 #menu #menu_b2 {
   width: 5.50724637681159vw;
@@ -450,7 +450,7 @@ export default {
   transition: 0.5s ease-in-out;
   padding: 0.579710144927536vw;
   position: relative;
-  margin: 1.15942028985507vw 0 0 0;
+  margin: 0.8vw 0 0 0;
 }
 #menu #menu_b2 p:nth-child(1) {
   margin: 0;
@@ -667,25 +667,25 @@ export default {
   height: 78vh;
   overflow: scroll;
 }
-@media (max-width: 1100px) {
+@media (max-width:1100px){
   #menu_container #inbox_container #ind_middle {
-    height: 48vw;
-  }
+  height: 48vw;
+}
 }
 #menu_container #inbox_container #ind_middle::-webkit-scrollbar {
   width: 3px;
 }
 
 #menu_container #inbox_container #ind_middle::-webkit-scrollbar-track {
-  background: transparent;
+  background: transparent; 
 }
-
+ 
 #menu_container #inbox_container #ind_middle::-webkit-scrollbar-thumb {
   background: transparent;
 }
 
 #menu_container #inbox_container #ind_middle:hover::-webkit-scrollbar-thumb {
-  background: rgba(85, 85, 85, 0.11);
+  background: rgba(85, 85, 85, 0.11); 
 }
 #menu_container #inbox_container #ind_middle #cards {
   background: #ffffff;
@@ -1040,25 +1040,23 @@ export default {
   transition: 0.5s ease-in-out;
 }
 #inbox_container2 #inbox_container2_bottom #lists {
-  overflow: scroll;
-  height: 39vh;
+  overflow:scroll;
+height:39vh;
 }
 #inbox_container2 #inbox_container2_bottom #lists::-webkit-scrollbar {
   width: 2px;
 }
 
 #inbox_container2 #inbox_container2_bottom #lists::-webkit-scrollbar-track {
-  background: transparent;
+  background: transparent; 
 }
-
+ 
 #inbox_container2 #inbox_container2_bottom #lists::-webkit-scrollbar-thumb {
   background: transparent;
 }
 
-#inbox_container2
-  #inbox_container2_bottom
-  #lists:hover::-webkit-scrollbar-thumb {
-  background: rgba(85, 85, 85, 0.11);
+#inbox_container2 #inbox_container2_bottom #lists:hover::-webkit-scrollbar-thumb {
+background: rgba(85, 85, 85, 0.11); 
 }
 #inbox_container2 #inbox_container2_bottom #lists p {
   display: flex;
