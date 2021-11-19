@@ -108,8 +108,8 @@
             </button>
             <button><img src="../assets/Filter.svg" /></button>
           </div>
-          <div id="ind_middle" v-for="(inbox, index) in inbox" :key="index">
-            <div id="cards" >
+          <div id="ind_middle">
+            <div id="cards" v-for="(inbox, index) in inbox" :key="index">
               <div id="card_top">
                 <button
                   v-bind:style="{
@@ -214,8 +214,8 @@
               />
             </p>
 
-            <div id="lists" v-for="(Do, index) in lists" :key="index">
-              <p>
+            <div id="lists" >
+              <p v-for="(Do, index) in lists" :key="index">
                 {{
                   index === 0
                     ? "0" + (index + 1)
@@ -237,11 +237,15 @@
                     ? "0" + (index + 1)
                     : index + 1
                 }}<span>{{ Do }}</span
-                ><img src="../assets/checked.svg" id="plus" @click="remove" />
+                ><img
+                  src="../assets/checked.svg"
+                  id="plus"
+                  @click="remove(index)"
+                />
                 <img
                   src="../assets/checked_green.svg"
                   id="plus2"
-                  @click="remove"
+                  @click="remove(index)"
                 />
               </p>
             </div>
@@ -315,6 +319,13 @@ export default {
 <style scoped>
 #table_main {
   padding: 0;
+  height: 100vh;
+}
+@media (max-width:1100px){
+  #table_main {
+  padding: 0;
+  height: 50vw;
+}
 }
 #table_main #search_container {
   background: #ffffff;
@@ -406,19 +417,23 @@ export default {
 }
 #menu {
   width: fit-content;
-  height: fit-content;
+  height: 89vh;
   background: #ffffff;
   padding: 0;
   display: flex;
   overflow: hidden;
+}
+@media (max-width:1100px){
+  #menu {
+  height: 48vw;
+}
 }
 #menu #menu_b2 {
   width: 5.50724637681159vw;
   height: 100%;
   margin: 0;
   box-shadow: 0 0 0.869565217391304vw rgba(16, 38, 73, 0.1);
-  padding: 0 11.5942028985507vw 0;
-  padding: 5.21739130434783vw 0 11.5942028985507vw 0;
+  padding: 3vw 0 0 0;
 }
 #menu #menu_b2 p {
   font-style: normal;
@@ -440,7 +455,7 @@ export default {
   margin: 0;
 }
 #menu #menu_b2 p:nth-child(7) {
-  margin: 7.7536231884058vw 0 0 0;
+  margin: 4vw 0 0 0;
 }
 #menu #menu_b2 p:hover:before {
   position: absolute;
@@ -600,7 +615,7 @@ export default {
   height: 100%;
   margin: 1.15942028985507vw 1.15942028985507vw 0 1.15942028985507vw;
   display: grid;
-  gap: 1.15942028985507vw;
+  gap: 0.5vw;
   grid-template-columns: auto auto auto auto;
 }
 #menu_container #inbox_container {
@@ -648,6 +663,28 @@ export default {
   grid-template-columns: 100%;
   gap: 1.31386861313869vw;
   margin: 1.31386861313869vw 0 0 0;
+  height: 78vh;
+  overflow: scroll;
+}
+@media (max-width:1100px){
+  #menu_container #inbox_container #ind_middle {
+  height: 48vw;
+}
+}
+#menu_container #inbox_container #ind_middle::-webkit-scrollbar {
+  width: 3px;
+}
+
+#menu_container #inbox_container #ind_middle::-webkit-scrollbar-track {
+  background: transparent; 
+}
+ 
+#menu_container #inbox_container #ind_middle::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+#menu_container #inbox_container #ind_middle:hover::-webkit-scrollbar-thumb {
+  background: rgba(85, 85, 85, 0.11); 
 }
 #menu_container #inbox_container #ind_middle #cards {
   background: #ffffff;
@@ -1000,6 +1037,25 @@ export default {
   margin: 0 0 0 auto;
   cursor: pointer;
   transition: 0.5s ease-in-out;
+}
+#inbox_container2 #inbox_container2_bottom #lists {
+  overflow:scroll;
+height:39vh;
+}
+#inbox_container2 #inbox_container2_bottom #lists::-webkit-scrollbar {
+  width: 2px;
+}
+
+#inbox_container2 #inbox_container2_bottom #lists::-webkit-scrollbar-track {
+  background: transparent; 
+}
+ 
+#inbox_container2 #inbox_container2_bottom #lists::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+#inbox_container2 #inbox_container2_bottom #lists:hover::-webkit-scrollbar-thumb {
+background: rgba(85, 85, 85, 0.11); 
 }
 #inbox_container2 #inbox_container2_bottom #lists p {
   display: flex;
