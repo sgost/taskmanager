@@ -1,11 +1,22 @@
 <template>
   <div id="table_main">
+    <div id="search_container">
+      <div id="menu_b1">
+        <img src="../assets/hamburger.svg" id="img2" />
+        <img src="../assets/hotKup.svg" id="img1" />
+      </div>
+      <div id="search_bar">
+        <img src="../assets/search.svg" />
+        <input type="search" placeholder="search" />
+      </div>
+      <div id="profile">
+        <img src="../assets/notification.svg" id="notification" />
+        <img src="../assets/avatar.svg" id="avatar" />
+        <p>Pavan B <img src="../assets/drop_black.svg" /></p>
+      </div>
+    </div>
     <div id="table_main_container">
       <div id="menu">
-        <div id="menu_b1">
-          <img src="../assets/hotKup.svg" id="img1" />
-          <img src="../assets/hamburger.svg" id="img2" />
-        </div>
         <div id="menu_b2">
           <p>
             <img src="../assets/tick2.svg" id="img1" /><img
@@ -33,31 +44,62 @@
             <img src="../assets/dash2.svg" id="img1" />
             <img src="../assets/dash1.svg" id="img2" />DASHBOARDS
           </p>
+          <p>
+            <img src="../assets/settings.svg" id="img1" />
+            <img src="../assets/settings2.svg" id="img2" />SETTINGS
+          </p>
         </div>
         <div id="menu_b3">
-          <p><img src="../assets/settings.svg" id="img1" />SETTINGS</p>
+          <div id="button">
+            <button id="btn1">
+              <img src="../assets/pencil.svg" />New Task
+            </button>
+            <button id="btn2"><img src="../assets/drop_white.svg" /></button>
+          </div>
+          <div id="menu_b3_middle">
+            <p>
+              <span
+                ><img src="../assets/message1.svg" id="img1" /><img
+                  src="../assets/message2.svg"
+                  id="img2"
+                />Inbox</span
+              ><span>(12)</span>
+            </p>
+            <p>
+              <span
+                ><img src="../assets/Send1.svg" id="img1" /><img
+                  src="../assets/Send2.svg"
+                  id="img2"
+                />Sent</span
+              ><span>(12)</span>
+            </p>
+            <p>
+              <span
+                ><img src="../assets/Close_Square.svg" id="img1" /><img
+                  src="../assets/Close_Square2.svg"
+                  id="img2"
+                />Closed</span
+              ><span>(12)</span>
+            </p>
+            <p>
+              <span
+                ><img src="../assets/Info.svg" id="img1" /><img
+                  src="../assets/Info2.svg"
+                  id="img2"
+                />Overdue</span
+              ><span>(12)</span>
+            </p>
+          </div>
+          <div id="menu_b3_down">
+            <h1>My Categories</h1>
+            <p>Design<span>(6)</span></p>
+            <p>Technology<span>(8)</span></p>
+            <p>Finance<span>(2)</span></p>
+          </div>
         </div>
       </div>
 
       <div id="menu_container">
-        <div id="search_container">
-          <div id="search_bar">
-            <img src="../assets/search.svg" />
-            <input type="search" placeholder="search" />
-          </div>
-          <div id="button">
-            <button id="btn1">
-              <img src="../assets/pencil.svg" />{{ message }}
-            </button>
-            <button id="btn2"><img src="../assets/drop_white.svg" /></button>
-          </div>
-          <div id="profile">
-            <img src="../assets/notification.svg" id="notification" />
-            <img src="../assets/avatar.svg" id="avatar" />
-            <p>Pavan B <img src="../assets/drop_black.svg" /></p>
-          </div>
-        </div>
-
         <div id="inbox_container">
           <div id="ind_top">
             <button>
@@ -66,76 +108,54 @@
             </button>
             <button><img src="../assets/Filter.svg" /></button>
           </div>
-          <div id="ind_middle">
-            <div id="cards">
+          <div id="ind_middle" v-for="(inbox, index) in inbox" :key="index">
+            <div id="cards" >
               <div id="card_top">
-                <button>MAINTENANCE</button>
-                <button>...</button>
-              </div>
-              <div id="card_middle">
-                <p>
-                  Please fix my computer network connection. Both LAN and Wi-Fi
-                  are not working
-                </p>
-                <p><span>#</span>Task ID: 1476</p>
-              </div>
-              <div id="card_bottom">
-                <div id="profile">
-                  <img src="../assets/avatar.svg" id="avatar" />
-                  <p>Pavan B</p>
-                </div>
-                <button>
-                  <img src="../assets/clock.svg" id="clock" />07 AUG
+                <button
+                  v-bind:style="{
+                    'background-color':
+                      inbox.category === 'MAINTENANCE'
+                        ? '#E6FCFF'
+                        : inbox.category === 'DESIGN'
+                        ? '#E6ECFF'
+                        : inbox.category === 'RESEARCH'
+                        ? '#F0F7E7'
+                        : inbox.category === 'TRAVEL'
+                        ? '#F9EBFD'
+                        : '#E6FCFF',
+                    color:
+                      inbox.category === 'MAINTENANCE'
+                        ? '#03A1B7'
+                        : inbox.category === 'DESIGN'
+                        ? '#367CEF'
+                        : inbox.category === 'RESEARCH'
+                        ? '#27AE60'
+                        : inbox.category === 'TRAVEL'
+                        ? '#EF2FAD'
+                        : '#EF2FAD',
+                  }"
+                >
+                  {{ inbox.category }}
                 </button>
-              </div>
-            </div>
-            <div id="cards">
-              <div id="card_top">
-                <button>MAINTENANCE</button>
                 <button>...</button>
               </div>
               <div id="card_middle">
-                <p>
-                  Please fix my computer network connection. Both LAN and Wi-Fi
-                  are not working
-                </p>
-                <p><span>#</span>Task ID: 1476</p>
+                <p>{{ inbox.title }}</p>
+                <p><span>#</span>Task ID: {{ "147" + index }}</p>
               </div>
               <div id="card_bottom">
                 <div id="profile">
                   <img src="../assets/avatar.svg" id="avatar" />
-                  <p>Pavan B</p>
+                  <p>{{ inbox.name }}</p>
                 </div>
-                <button>
-                  <img src="../assets/clock.svg" id="clock" />07 AUG
-                </button>
-              </div>
-            </div>
-
-            <div id="cards">
-              <div id="card_top">
-                <button>MAINTENANCE</button>
-                <button>...</button>
-              </div>
-              <div id="card_middle">
-                <p>
-                  Please fix my computer network connection. Both LAN and Wi-Fi
-                  are not working
-                </p>
-                <p><span>#</span>Task ID: 1476</p>
-              </div>
-              <div id="card_bottom">
-                <div id="profile">
-                  <img src="../assets/avatar.svg" id="avatar" />
-                  <p>Pavan B</p>
-                </div>
-                <button>
+                <button v-bind:style="{ 'background-color': inbox.date_color }">
                   <img src="../assets/clock.svg" id="clock" />07 AUG
                 </button>
               </div>
             </div>
           </div>
         </div>
+
         <div id="inbox_container2">
           <div id="inbox_container2_top">
             <div id="prof_img">
@@ -186,13 +206,37 @@
               />
             </div>
             <p v-else>
-              Checklist<span>({{lists.length}})</span>
-              <img src="../assets/plus.svg" id="plus" @click="this.showTask = true"/>
+              Checklist<span>({{ lists.length }})</span>
+              <img
+                src="../assets/plus.svg"
+                id="plus"
+                @click="this.showTask = true"
+              />
             </p>
 
             <div id="lists" v-for="(Do, index) in lists" :key="index">
               <p>
-                {{ index === 0 ? "0"+(index+1) : index === 1 ? "0"+(index+1) : index === 2 ? "0"+(index+1) : index === 3 ? "0"+(index+1) : index === 4 ? "0"+(index+1) : index === 5 ? "0"+(index+1) : index === 6 ? "0"+(index+1) : index === 7 ? "0"+(index+1) : index === 8 ? "0"+(index+1) : index+1}}<span>{{ Do }}</span
+                {{
+                  index === 0
+                    ? "0" + (index + 1)
+                    : index === 1
+                    ? "0" + (index + 1)
+                    : index === 2
+                    ? "0" + (index + 1)
+                    : index === 3
+                    ? "0" + (index + 1)
+                    : index === 4
+                    ? "0" + (index + 1)
+                    : index === 5
+                    ? "0" + (index + 1)
+                    : index === 6
+                    ? "0" + (index + 1)
+                    : index === 7
+                    ? "0" + (index + 1)
+                    : index === 8
+                    ? "0" + (index + 1)
+                    : index + 1
+                }}<span>{{ Do }}</span
                 ><img src="../assets/checked.svg" id="plus" @click="remove" />
                 <img
                   src="../assets/checked_green.svg"
@@ -213,9 +257,33 @@ export default {
   data() {
     return {
       message: "",
+      inbox_toggle: 0,
       editing: false,
       editingId: 0,
       lists: ["Create Mobile Responsive Prototype for Task bench application"],
+      inbox: [
+        {
+          category: "MAINTENANCE",
+          title:
+            "Please fix my computer network connection. Both LAN and Wi-Fi are not working",
+          name: "Jack Smith",
+          date_color: "#EB5757",
+        },
+        {
+          category: "DESIGN",
+          title:
+            "Create Mobile Responsive Prototype for Task bench application",
+          name: "Shirley Lynn",
+          date_color: "#3DD193",
+        },
+        {
+          category: "TRAVEL",
+          title:
+            "Please book a flight ticket to Johannesburg for 25th Aug 2021",
+          name: "Pawan Bhojanala",
+          date_color: "#FCAB3E",
+        },
+      ],
       showTask: false,
     };
   },
@@ -240,117 +308,39 @@ export default {
       this.message = this.lists[index];
       (this.editing = true), (this.editingId = index), (this.check = true);
     },
-
   },
 };
 </script>
 
 <style scoped>
 #table_main {
-  padding: 1.75182481751825vw;
+  padding: 0;
 }
-#table_main_container {
-  display: flex;
-}
-#menu {
-  width: fit-content;
-  height: fit-content;
+#table_main #search_container {
   background: #ffffff;
-  box-shadow: 0 0 0.875912408759124vw rgba(16, 38, 73, 0.06);
-  border-radius: 1.31224817518248vw;
-  padding: 0.72992700729927vw 0 2.33576642335766vw;
-}
-#menu #menu_b1 {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.72992700729927vw;
-}
-#menu #menu_b1 #img1 {
-  width: 7.88321167883212vw;
-  height: 1.8978102189781vw;
-}
-#menu #menu_b1 #img2 {
-  width: 2.33576642335766vw;
-  height: 2.33576642335766vw;
-  margin-left: 3.5036496350365vw;
-  cursor: pointer;
-}
-#menu #menu_b2 {
-  margin: 3.5036496350365vw 0 0 0;
-  width: 100%;
-}
-#menu #menu_b2 p {
-  padding: 1.16788321167883vw 0 1.16788321167883vw 1.02189781021898vw;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 0.875912408759124vw;
-  line-height: 1.09489051094891vw;
-  display: flex;
-  align-items: center;
-  color: #65676d;
-  cursor: pointer;
-  transition: 0.5s ease-in-out;
-}
-#menu #menu_b2 p img {
-  width: 1.75182481751825vw;
-  height: 1.75182481751825vw;
-  margin: 0 0.72992700729927vw 0 0;
-}
-#menu #menu_b2 p #img2 {
-  display: none;
-}
-#menu #menu_b2 p:hover {
-  background: #e6f2ff;
-  color: #0077d7;
-  border-right: 0.437956204379562vw solid #0077d7;
-}
-#menu #menu_b2 p:hover #img1 {
-  display: none;
-}
-#menu #menu_b2 p:hover #img2 {
-  display: block;
-}
-#menu #menu_b3 {
-  margin: 14.5985401459854vw 0 0 0;
-}
-#menu #menu_b3 p {
-  padding: 0 0 0 1.02189781021898vw;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 0.875912408759124vw;
-  line-height: 1.09489051094891vw;
-  display: flex;
-  align-items: center;
-  color: #65676d;
-  cursor: pointer;
-  transition: 0.5s ease-in-out;
-}
-#menu #menu_b3 p img {
-  width: 1.75182481751825vw;
-  height: 1.75182481751825vw;
-  margin: 0 0.72992700729927vw 0 0;
-}
-
-#menu_container {
-  width: 85%;
-  height: 100%;
-  margin-left: 1.75182481751825vw;
-  display: grid;
-  gap: 1.60583941605839vw;
-  grid-template-columns: auto auto auto auto;
-}
-#menu_container #search_container {
-  background: #ffffff;
-  box-shadow: 0 0 0.875912408759124vw rgba(16, 38, 73, 0.06);
-  border-radius: 0.583941605839416vw;
+  box-shadow: 0 0 0.869565217391304vw rgba(16, 38, 73, 0.06);
   display: flex;
   align-items: center;
   padding: 0.656934306569343vw 1.16788321167883vw;
-  grid-column: 1/5;
-  grid-row: 1;
+  margin: 0 0 0.072463768115942vw 0;
 }
-#menu_container #search_container #search_bar {
+#table_main #search_container #menu_b1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.72992700729927vw 0.72992700729927vw 0.72992700729927vw 0.5vw;
+}
+#table_main #search_container #menu_b1 #img1 {
+  width: 7.88321167883212vw;
+  height: 1.8978102189781vw;
+}
+#table_main #search_container #menu_b1 #img2 {
+  width: 2.33576642335766vw;
+  height: 2.33576642335766vw;
+  margin-right: 3.5036496350365vw;
+  cursor: pointer;
+}
+#table_main #search_container #search_bar {
   padding: 0.145985401459854vw 7.01853284671533vw 0.145985401459854vw
     1.12296350364964vw;
   width: 28%;
@@ -362,7 +352,7 @@ export default {
   align-items: center;
   height: 2.91970802919708vw;
 }
-#menu_container #search_container #search_bar input {
+#table_main #search_container #search_bar input {
   width: 100%;
   height: 100%;
   font-weight: 500;
@@ -372,75 +362,31 @@ export default {
   outline: none;
   padding: 0.510948905109489vw 0 0.510948905109489vw 0.875912408759124vw;
 }
-#menu_container #search_container #search_bar img {
+#table_main #search_container #search_bar img {
   width: 1.34306569343066vw;
   height: 1.34306569343066vw;
   margin: auto;
 }
-#menu_container #button {
-  display: flex;
-  background: #0077d7;
-  border-radius: 0.291970802919708vw;
-  margin: auto 0 auto 19.7080291970803vw;
-}
-#menu_container #button button {
-  background: transparent;
-  outline: none;
-  border: none;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 1.02189781021898vw;
-  line-height: 1.60583941605839vw;
-  color: #ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-#menu_container #button #btn1 {
-  width: 10.2189781021898vw;
-  height: 2.91970802919708vw;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 1.02189781021898vw;
-  line-height: 1.60583941605839vw;
-  color: #ffffff;
-  justify-content: left;
-}
-#menu_container #button #btn1 img {
-  margin: 0 0.72992700729927vw 0 0.875912408759124vw;
-  width: 1.45985401459854vw;
-  height: 1.45985401459854vw;
-}
-#menu_container #button #btn2 {
-  width: 2.18978102189781vw;
-  height: 2.91970802919708vw;
-  border-left: 0.072992700729927vw solid white;
-}
-#menu_container #button #btn2 img {
-  width: 0.8vw;
-  height: 0.8vw;
-}
-#menu_container #profile {
+#table_main #profile {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: auto 0 auto auto;
 }
-#menu_container #profile #notification {
+#table_main #profile #notification {
   width: 1.75182481751825vw;
   height: 1.75182481751825vw;
   margin: 0 1.60583941605839vw 0 0;
   cursor: pointer;
 }
-#menu_container #profile #avatar {
+#table_main #profile #avatar {
   width: 2.62773722627737vw;
   height: 2.62773722627737vw;
   border-radius: 50%;
   border: 0.145985401459854vw solid #0077d7;
   cursor: pointer;
 }
-#menu_container #profile p {
+#table_main #profile p {
   margin: 0 0.364963503649635vw;
   font-style: normal;
   font-weight: normal;
@@ -450,15 +396,216 @@ export default {
   display: flex;
   align-items: center;
 }
-#menu_container #profile p img {
+#table_main #profile p img {
   margin: 0 0 0 0.5vw;
   width: 0.8vw;
   height: 0.8vw;
 }
+#table_main_container {
+  display: flex;
+}
+#menu {
+  width: fit-content;
+  height: fit-content;
+  background: #ffffff;
+  padding: 0;
+  display: flex;
+  overflow: hidden;
+}
+#menu #menu_b2 {
+  width: 5.50724637681159vw;
+  height: 100%;
+  margin: 0;
+  box-shadow: 0 0 0.869565217391304vw rgba(16, 38, 73, 0.1);
+  padding: 0 11.5942028985507vw 0;
+  padding: 5.21739130434783vw 0 11.5942028985507vw 0;
+}
+#menu #menu_b2 p {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 0.652173913043478vw;
+  line-height: 1.09489051094891vw;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  color: #65676d;
+  cursor: pointer;
+  transition: 0.5s ease-in-out;
+  padding: 0.579710144927536vw;
+  position: relative;
+  margin: 1.15942028985507vw 0 0 0;
+}
+#menu #menu_b2 p:nth-child(1) {
+  margin: 0;
+}
+#menu #menu_b2 p:nth-child(7) {
+  margin: 7.7536231884058vw 0 0 0;
+}
+#menu #menu_b2 p:hover:before {
+  position: absolute;
+  content: "";
+  width: 0.144927536231884vw;
+  height: 100%;
+  right: 0;
+  background: #0077d7;
+}
+#menu #menu_b2 p img {
+  width: 1.44927536231884vw;
+  height: 1.44927536231884vw;
+  margin: 0;
+  margin: 0 0 0.5vw 0;
+}
+#menu #menu_b2 p #img2 {
+  display: none;
+}
+#menu #menu_b2 p:hover {
+  background: #e6f2ff;
+  color: #0077d7;
+}
+#menu #menu_b2 p:hover #img1 {
+  display: none;
+}
+#menu #menu_b2 p:hover #img2 {
+  display: block;
+}
+
+/*=================Side menu =======================*/
+#menu #menu_b3 {
+  width: 14.2028985507246vw;
+  padding: 1.15942028985507vw;
+}
+#menu #menu_b3 #button {
+  display: flex;
+  width: fit-content;
+  margin: auto;
+}
+#menu #menu_b3 #button button {
+  background: #0077d7;
+  border: none;
+  outline: none;
+  display: flex;
+  height: 2.89855072463768vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  cursor: pointer;
+  font-size: 1vw;
+}
+#menu #menu_b3 #button #btn1 {
+  width: 8.91304347826087vw;
+  border-radius: 0.579710144927536vw 0 0 0.579710144927536vw;
+  justify-content: left;
+}
+#menu #menu_b3 #button #btn1 img {
+  width: 1.44927536231884vw;
+  height: 1.44927536231884vw;
+  margin: 0 0.289855072463768vw 0 0.869565217391304vw;
+}
+#menu #menu_b3 #button #btn2 {
+  width: 2.89855072463768vw;
+  border-left: 0.072463768115942vw solid white;
+  border-radius: 0 0.579710144927536vw 0.579710144927536vw 0;
+}
+#menu #menu_b3 #button #btn2 img {
+  width: 0.579710144927536vw;
+  height: 0.36231884057971vw;
+}
+#menu #menu_b3 #menu_b3_middle {
+  margin: 2.89855072463768vw 0 0 0;
+}
+#menu #menu_b3 #menu_b3_middle p {
+  margin: 0 0.364963503649635vw;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 0.869565217391304vw;
+  color: #000000;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1.30434782608696vw 0 0 0;
+  padding: 0 0.579710144927536vw;
+}
+#menu #menu_b3 #menu_b3_middle p:hover {
+  font-weight: bold;
+  color: #0077d7;
+}
+#menu #menu_b3 #menu_b3_middle p span {
+  display: flex;
+  align-items: center;
+}
+#menu #menu_b3 #menu_b3_middle p img {
+  width: 1.44927536231884vw;
+  height: 1.44927536231884vw;
+  margin: 0 0.5vw 0 0;
+}
+#menu #menu_b3 #menu_b3_middle p #img2 {
+  display: none;
+}
+#menu #menu_b3 #menu_b3_middle p span:nth-child(2) {
+  color: #200e32;
+  opacity: 0.5;
+}
+#menu #menu_b3 #menu_b3_middle p:hover span:nth-child(2) {
+  color: #0077d7;
+}
+#menu #menu_b3 #menu_b3_middle p:hover #img1 {
+  display: none;
+}
+#menu #menu_b3 #menu_b3_middle p:hover #img2 {
+  display: flex;
+}
+
+#menu #menu_b3 #menu_b3_down {
+  margin: 2.89855072463768vw 0 0 0;
+  padding: 0 0.579710144927536vw;
+}
+
+#menu #menu_b3 #menu_b3_down h1 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 0.869565217391304vw;
+  line-height: 1.08695652173913vw;
+  color: #000000;
+  padding: 0 0 0.869565217391304vw 0;
+  border-bottom: 0.036231884057971vw solid #aaaaaa;
+}
+#menu #menu_b3 #menu_b3_down p {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.869565217391304vw;
+  line-height: 1.08695652173913vw;
+  color: #200e32;
+  opacity: 0.8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.869565217391304vw 0 0 0;
+  cursor: pointer;
+}
+#menu #menu_b3 #menu_b3_down p:hover {
+  color: #0077d7;
+}
+
+#menu #menu_b3 #menu_b3_down p span {
+  opacity: 0.5;
+}
+
+/*=====================================================*/
+#menu_container {
+  width: 85%;
+  height: 100%;
+  margin: 1.15942028985507vw 1.15942028985507vw 0 1.15942028985507vw;
+  display: grid;
+  gap: 1.15942028985507vw;
+  grid-template-columns: auto auto auto auto;
+}
 #menu_container #inbox_container {
   width: 25.8394160583942vw;
   grid-column: 1/2;
-  grid-row: 2;
 }
 #menu_container #inbox_container #ind_top {
   display: flex;
@@ -621,26 +768,24 @@ export default {
   display: flex;
   align-items: center;
   color: #ffffff;
-  background: #16c45f;
 }
 #menu_container #inbox_container #ind_middle #cards #card_bottom button #clock {
   margin: 0 0.510948905109489vw 0 0;
-  width: 0.72992700729927vw;
-  height: 0.72992700729927vw;
-}
-#menu_container #inbox_container2 {
-  grid-column: 2/5;
+  width: 0.948905109489051vw;
+  height: 0.948905109489051vw;
 }
 
 /*=============  Main Profile box=================*/
+#menu_container #inbox_container2 {
+  grid-column: 2/5;
+}
 #inbox_container2 #inbox_container2_top {
   background: #ffffff;
   box-shadow: 0 0 0.875912408759124vw rgba(16, 38, 73, 0.06);
   border-radius: 0.583941605839416vw;
   display: flex;
   align-items: center;
-  padding: 1.45985401459854vw 4.37956204379562vw 1.45985401459854vw
-    1.45985401459854vw;
+  padding: 1.45985401459854vw 4.37956204379562vw 0.8vw 1.45985401459854vw;
 }
 #inbox_container2 #inbox_container2_top #prof_img #avatar {
   width: 7.88321167883212vw;
@@ -718,7 +863,7 @@ export default {
   line-height: 1.75182481751825vw;
   color: #200e32;
   width: fit-content;
-  margin: 0 0 0 4.01459854014599vw;
+  margin: 0 0 0 2.2vw;
 }
 #inbox_container2 #inbox_container2_top #prof_data #prof_btns p span {
   padding: 0;
@@ -774,11 +919,11 @@ export default {
 #inbox_container2 #inbox_container2_middle p {
   font-style: normal;
   font-weight: 500;
-  font-size: 1.01067153284672vw;
+  font-size: 0.942028985507246vw;
   line-height: 1.24087591240876vw;
   color: #200e32;
   opacity: 0.8;
-  margin-left: 2.18978102189781vw;
+  margin-left: 1.9vw;
   padding: 1.09489051094891vw 0;
   cursor: pointer;
   transition: 0.5s ease-in-out;
@@ -803,10 +948,10 @@ export default {
   padding: 0 1vw;
 }
 #inbox_container2 #inbox_container2_bottom #task_bar_container #task_bar {
-  width: 479px;
-  height: 46px;
+  width: 34.7101449275362vw;
+  height: 3.33333333333333vw;
   background: #f3f3f3;
-  border-radius: 8px;
+  border-radius: 0.579710144927536vw;
   border: none;
   outline: none;
   padding: 0 1vw;
@@ -818,7 +963,7 @@ export default {
   margin: auto 0 auto auto;
   cursor: pointer;
   transition: 0.5s ease-in-out;
-   transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 #inbox_container2 #inbox_container2_bottom p {
   display: flex;
@@ -895,7 +1040,7 @@ export default {
   position: absolute;
   content: "";
   width: 100%;
-  height: 1px;
+  height: 0.072463768115942vw;
   background: #65676d;
   top: 49%;
   left: 0;
