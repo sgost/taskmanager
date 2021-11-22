@@ -109,7 +109,13 @@
             <button><img src="../assets/Filter.svg" /></button>
           </div>
           <div id="ind_middle">
-            <div id="cards" v-for="(inbox, index) in inbox" :key="index">
+            <div
+            id="cards"
+              v-bind:class="indToggle === index ? 'cards_active' : 'cards'"
+              v-for="(inbox, index) in inbox"
+              :key="index"
+              @click="this.indToggle = index"
+            >
               <div id="card_top">
                 <button
                   v-bind:style="{
@@ -141,7 +147,7 @@
               </div>
               <div id="card_middle">
                 <p>{{ inbox.title }}</p>
-                <p><span>#</span>Task ID: {{ "147" + index }}</p>
+                <p><span>#</span>Task ID: {{ index + 1 }}</p>
               </div>
               <div id="card_bottom">
                 <div id="profile">
@@ -156,27 +162,60 @@
           </div>
         </div>
 
-        <div id="inbox_container2">
+        <div
+          id="inbox_container2"
+          v-for="(inbox, index) in inbox"
+          :key="index"
+          v-bind:style="{ display: indToggle === index ? 'block' : 'none' }"
+        >
           <div id="inbox_container2_top">
             <div id="prof_img">
               <img src="../assets/avatar.svg" id="avatar" />
             </div>
             <div id="prof_data">
               <p id="id">
-                <span>#</span>Task ID: 1476
+                <span>#</span>Task ID: {{ index + 1 }}
                 <button>
                   <img src="../assets/clock.svg" id="clock" />07 AUG
                 </button>
               </p>
               <p>
-                Please fix my computer network connection. Both LAN and Wi-Fi
-                are not working
+                {{ inbox.title }}
               </p>
               <p>By Pawan Bhojanala, 12/11/2021, 5:42PM</p>
               <div id="prof_btns">
-                <p>CATEGORY: <span>MAINTENANCE</span></p>
+                <p>
+                  CATEGORY:
+                  <span
+                    v-bind:style="{
+                      'background-color':
+                        inbox.category === 'MAINTENANCE'
+                          ? '#E6FCFF'
+                          : inbox.category === 'DESIGN'
+                          ? '#E6ECFF'
+                          : inbox.category === 'RESEARCH'
+                          ? '#F0F7E7'
+                          : inbox.category === 'TRAVEL'
+                          ? '#F9EBFD'
+                          : '#E6FCFF',
+                      color:
+                        inbox.category === 'MAINTENANCE'
+                          ? '#03A1B7'
+                          : inbox.category === 'DESIGN'
+                          ? '#367CEF'
+                          : inbox.category === 'RESEARCH'
+                          ? '#27AE60'
+                          : inbox.category === 'TRAVEL'
+                          ? '#EF2FAD'
+                          : '#EF2FAD',
+                    }"
+                    >{{ inbox.category }}</span
+                  >
+                </p>
                 <p>STAGE: <span>NEW</span></p>
-                <p>ASSIGNEE: <span>VIGNESH BHASKAR</span></p>
+                <p>
+                  ASSIGNEE: <span>{{ inbox.name }}</span>
+                </p>
               </div>
             </div>
           </div>
@@ -188,7 +227,7 @@
             <p>Reminders</p>
             <p>Time Log</p>
             <p>Forms</p>
-            <p>Hooks</p>
+            <p @click="this.indToggle = 1">Hooks</p>
           </div>
           <div id="inbox_container2_bottom">
             <div id="task_bar_container" v-if="showTask">
@@ -214,7 +253,7 @@
               />
             </p>
 
-            <div id="lists" >
+            <div id="lists">
               <p v-for="(Do, index) in lists" :key="index">
                 {{
                   index === 0
@@ -289,6 +328,7 @@ export default {
         },
       ],
       showTask: false,
+      indToggle: 0,
     };
   },
   methods: {
@@ -320,13 +360,13 @@ export default {
 #table_main {
   padding: 0;
   height: 100vh;
-  overflow:hidden;
+  overflow: hidden;
 }
-@media (max-width:1100px){
+@media (max-width: 1100px) {
   #table_main {
-  padding: 0;
-  height: 50vw;
-}
+    padding: 0;
+    height: 50vw;
+  }
 }
 #table_main #search_container {
   background: #ffffff;
@@ -424,10 +464,10 @@ export default {
   display: flex;
   overflow: hidden;
 }
-@media (max-width:1100px){
+@media (max-width: 1100px) {
   #menu {
-  height: 48vw;
-}
+    height: 48vw;
+  }
 }
 #menu #menu_b2 {
   width: 5.50724637681159vw;
@@ -667,25 +707,25 @@ export default {
   height: 78vh;
   overflow: scroll;
 }
-@media (max-width:1100px){
+@media (max-width: 1100px) {
   #menu_container #inbox_container #ind_middle {
-  height: 39vw;
-}
+    height: 39vw;
+  }
 }
 #menu_container #inbox_container #ind_middle::-webkit-scrollbar {
   width: 3px;
 }
 
 #menu_container #inbox_container #ind_middle::-webkit-scrollbar-track {
-  background: transparent; 
+  background: transparent;
 }
- 
+
 #menu_container #inbox_container #ind_middle::-webkit-scrollbar-thumb {
   background: transparent;
 }
 
 #menu_container #inbox_container #ind_middle:hover::-webkit-scrollbar-thumb {
-  background: rgba(85, 85, 85, 0.11); 
+  background: rgba(85, 85, 85, 0.11);
 }
 #menu_container #inbox_container #ind_middle #cards {
   background: #ffffff;
@@ -694,8 +734,9 @@ export default {
   height: 10.2919708029197vw;
   padding: 1.16788321167883vw;
   transition: 0.5s ease-in-out;
+  cursor: pointer;
 }
-#menu_container #inbox_container #ind_middle #cards:hover {
+#menu_container #inbox_container #ind_middle .cards_active {
   border: 0.145985401459854vw solid #0077d7;
   box-shadow: 0 0 1.45985401459854vw rgba(18, 73, 164, 0.2);
 }
@@ -1040,23 +1081,25 @@ export default {
   transition: 0.5s ease-in-out;
 }
 #inbox_container2 #inbox_container2_bottom #lists {
-  overflow:scroll;
-height:39vh;
+  overflow: scroll;
+  height: 39vh;
 }
 #inbox_container2 #inbox_container2_bottom #lists::-webkit-scrollbar {
   width: 2px;
 }
 
 #inbox_container2 #inbox_container2_bottom #lists::-webkit-scrollbar-track {
-  background: transparent; 
+  background: transparent;
 }
- 
+
 #inbox_container2 #inbox_container2_bottom #lists::-webkit-scrollbar-thumb {
   background: transparent;
 }
 
-#inbox_container2 #inbox_container2_bottom #lists:hover::-webkit-scrollbar-thumb {
-background: rgba(85, 85, 85, 0.11); 
+#inbox_container2
+  #inbox_container2_bottom
+  #lists:hover::-webkit-scrollbar-thumb {
+  background: rgba(85, 85, 85, 0.11);
 }
 #inbox_container2 #inbox_container2_bottom #lists p {
   display: flex;
