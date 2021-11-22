@@ -669,7 +669,7 @@ export default {
 }
 @media (max-width:1100px){
   #menu_container #inbox_container #ind_middle {
-  height: 48vw;
+  height: 39vw;
 }
 }
 #menu_container #inbox_container #ind_middle::-webkit-scrollbar {
